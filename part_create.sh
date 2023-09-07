@@ -1,19 +1,16 @@
 #!/bin/bash
 
 echo "SAFETY REMINDER: Please review the script thoroughly. If you are sure about the actions, uncomment or remove the 'exit' line to proceed."
-
-# SAFETY MEASURE: Uncomment or remove the next line after reviewing the script.
 exit
 
 device="/dev/nvme0n1"
-sleepdur=5
-
 
 # Delete existing partition table if any
 fdisk $device <<EOF
 o
 w
 EOF
+partx -u $device
 
 # Create nvme0n1p1 of 1GB
 fdisk $device <<EOF
@@ -24,8 +21,7 @@ p
 +1G
 w
 EOF
-
-sleep sleepdur  # Wait for a couple of seconds
+partx -u $device
 
 # Create nvme0n1p2 of 32GB
 fdisk $device <<EOF
@@ -36,8 +32,7 @@ p
 +32G
 w
 EOF
-
-sleep sleepdur  # Wait for a couple of seconds
+partx -u $device
 
 # Create nvme0n1p3 taking up the remaining space
 fdisk $device <<EOF
@@ -48,5 +43,6 @@ p
 
 w
 EOF
+partx -u $device
 
 echo "Partitions created successfully on $device."
