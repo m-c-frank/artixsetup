@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Constants
-device="/dev/nvme0n1"
+DEVICE="/dev/nvme0n1"
 
 # Function to display a safety reminder
 safety_reminder() {
@@ -60,38 +60,56 @@ update_partitions() {
     done
 }
 
-# Main script execution
-safety_reminder
+# Function to mount partitions and create directories
+mount_and_create_dirs() {
+    mount "${DEVICE}p2" /mnt
+    mkdir -p /mnt/home
+    mkdir -p /mnt/boot
 
-# Display current block devices
-lsblk
+    mount "${DEVICE}p1" /mnt/boot
+    mount "${DEVICE}p3" /mnt/home
+}
 
-# Clear the partition table
-clear_partition_table $device
+# Main function
+main() {
+    safety_reminder
 
-# Display updated block devices
-lsblk
+    # Display current block devices
+    lsblk
 
-# Create partitions and update OS
-create_partition $device "p" "1" "+1G"
-update_partitions $device
+    # Clear the partition table
+    clear_partition_table $DEVICE
 
-create_partition $device "p" "2" "+32G"
-update_partitions $device
+    # Display updated block devices
+    lsblk
 
-create_partition $device "p" "3" ""
-update_partitions $device
+    # Create partitions and update OS
+    create_partition $DEVICE "p" "1" "+1G"
+    update_partitions $DEVICE
 
-# Format the partitions
-format_partition "${device}p1" "fat32"
-format_partition "${device}p2" "ext4"
-format_partition "${device}p3" "ext4"
+    create_partition $DEVICE "p" "2" "+32G"
+    update_partitions $DEVICE
 
-# Confirm the partitions were created and formatted successfully
-echo "Partitions created and formatted successfully on $device."
+    create_partition $DEVICE "p" "3" ""
+    update_partitions $DEVICE
 
-# Flush file system buffers
-sync
+    # Format the partitions
+    format_partition "${DEVICE}p1" "fat32"
+    format_partition "${DEVICE}p2" "ext4"
+    format_partition "${DEVICE}p3" "ext4"
 
-# Display the final block devices list
-lsblk
+    # Confirm the partitions were created and formatted successfully
+    echo "Partitions created and formatted successfully on $DEVICE."
+
+    # Flush file system buffers
+    sync
+
+    # Display the final block devices list
+    lsblk
+
+    # Mount partitions and create directories
+    mount_and_create_dirs
+}
+
+# Execute the main function
+main
