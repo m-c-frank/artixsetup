@@ -384,8 +384,8 @@ echo "kernel.dmesg_restrict = 0" > /etc/sysctl.d/dmesg.conf
 
 
 echo "m-c-frank"
-ln -s /etc/runit/sv/wpa_supplicant  /run/runit/service
-dhclient
+curl -LO raw.githubusercontent.com/m-c-frant/artixsetup/main/postboot.sh
 
+echo "reboot now and run postboot.sh"
 # Last message! Install complete!
 finalize
