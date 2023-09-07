@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ba
 
 # Constants
 DEVICE="/dev/nvme0n1"
@@ -114,7 +114,7 @@ main() {
 
     fstabgen -U /mnt >> /mnt/etc/fstab
 
-    curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postinstall.sh
+    curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postinstall.sh >> /mnt/postinstall.sh
 }
 
 # Execute the main function
