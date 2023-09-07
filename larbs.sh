@@ -26,7 +26,7 @@ error() {
 	exit 1
 }
 
-welcomemsg()	 {
+welcomemsg() {
 	whiptail --title "Welcome!" \
 		--msgbox "Welcome to Luke's Auto-Rice Bootstrapping Script!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine.\\n\\n-Luke" 10 60
 
@@ -36,6 +36,7 @@ welcomemsg()	 {
 }
 
 getuserandpass() {
+	name="$USERNAME"
     # Prompts user for new password.
     pass1=$(whiptail --nocancel --passwordbox "Enter a password for the user $USERNAME." 10 60 3>&1 1>&2 2>&3 3>&1)
     pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
