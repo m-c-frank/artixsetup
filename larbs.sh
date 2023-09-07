@@ -26,7 +26,7 @@ error() {
 	exit 1
 }
 
-welcomemsg() {
+welcomemsg()	 {
 	whiptail --title "Welcome!" \
 		--msgbox "Welcome to Luke's Auto-Rice Bootstrapping Script!\\n\\nThis script will automatically install a fully-featured Linux desktop, which I use as my main machine.\\n\\n-Luke" 10 60
 
@@ -315,6 +315,9 @@ echo "kernel.dmesg_restrict = 0" > /etc/sysctl.d/dmesg.conf
 
 echo "m-c-frank"
 curl -LO raw.githubusercontent.com/m-c-frant/artixsetup/main/postboot.sh
+curl -LO raw.githubusercontent.com/m-c-frant/artixsetup/main/wpa_supplicant.conf
+
+mv wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 
 echo "reboot now and run postboot.sh"
 # Last message! Install complete!
