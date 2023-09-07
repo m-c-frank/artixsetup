@@ -6,6 +6,8 @@
 
 ### OPTIONS AND VARIABLES ###
 
+USERNAME="mcfrank"
+
 dotfilesrepo="https://github.com/m-c-frank/voidrice.git"
 progsfile="https://raw.githubusercontent.com/m-c-frank/artixsetup/main/progs.csv"
 aurhelper="yay"
@@ -34,18 +36,15 @@ welcomemsg() {
 }
 
 getuserandpass() {
-	# Prompts user for new username an password.
-	name=$(whiptail --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit 1
-	while ! echo "$name" | grep -q "^[a-z_][a-z0-9_-]*$"; do
-		name=$(whiptail --nocancel --inputbox "Username not valid. Give a username beginning with a letter, with only lowercase letters, - or _." 10 60 3>&1 1>&2 2>&3 3>&1)
-	done
-	pass1=$(whiptail --nocancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1)
-	pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
-	while ! [ "$pass1" = "$pass2" ]; do
-		unset pass2
-		pass1=$(whiptail --nocancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
-		pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
-	done
+    # Prompts user for new password.
+    pass1=$(whiptail --nocancel --passwordbox "Enter a password for the user $USERNAME." 10 60 3>&1 1>&2 2>&3 3>&1)
+    pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+    
+    while ! [ "$pass1" = "$pass2" ]; do
+        unset pass2
+        pass1=$(whiptail --nocancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
+        pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+    done
 }
 
 usercheck() {
