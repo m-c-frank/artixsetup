@@ -315,8 +315,8 @@ echo "kernel.dmesg_restrict = 0" > /etc/sysctl.d/dmesg.conf
 
 
 echo "m-c-frank"
-curl -LO raw.githubusercontent.com/m-c-frant/artixsetup/main/postboot.sh
-curl -LO raw.githubusercontent.com/m-c-frant/artixsetup/main/wpa_supplicant.conf
+curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postboot.sh
+curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/wpa_supplicant.conf
 
 mv wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 
