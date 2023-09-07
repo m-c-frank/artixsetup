@@ -109,6 +109,8 @@ main() {
 
     # Mount partitions and create directories
     mount_and_create_dirs
+
+    basestrap /mnt base base-devel runit elogind-runit linux linux-firmware
 }
 
 # Execute the main function
