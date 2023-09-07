@@ -35,6 +35,21 @@ w
 EOF
 }
 
+# Function to format a partition
+format_partition() {
+    local partition=$1
+    local fs_type=$2
+
+    if [ "$fs_type" == "fat32" ]; then
+        mkfs.vfat -F 32 $partition
+    elif [ "$fs_type" == "ext4" ]; then
+        mkfs.ext4 $partition
+    else
+        echo "Unsupported file system type: $fs_type"
+        exit 1
+    fi
+}
+
 # Function to update the OS with partition table changes and ensure the command is successful
 update_partitions() {
     local device=$1
@@ -67,8 +82,13 @@ update_partitions $device
 create_partition $device "p" "3" ""
 update_partitions $device
 
-# Confirm the partitions were created successfully
-echo "Partitions created successfully on $device."
+# Format the partitions
+format_partition "${device}p1" "fat32"
+format_partition "${device}p2" "ext4"
+format_partition "${device}p3" "ext4"
+
+# Confirm the partitions were created and formatted successfully
+echo "Partitions created and formatted successfully on $device."
 
 # Flush file system buffers
 sync
