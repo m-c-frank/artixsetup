@@ -1,58 +1,77 @@
 #!/bin/bash
 
-echo "SAFETY REMINDER: Please review the script thoroughly. If you are sure about the actions, uncomment or remove the 'exit' line to proceed."
-exit
-
+# Constants
 device="/dev/nvme0n1"
 
-lsblk
-fdisk $device <<EOF
+# Function to display a safety reminder
+safety_reminder() {
+    echo "SAFETY REMINDER: Please review the script thoroughly."
+    echo "If you are sure about the actions, uncomment or remove the 'exit' line to proceed."
+    exit
+}
+
+# Function to clear the partition table
+clear_partition_table() {
+    fdisk $1 <<EOF
 o
 w
 EOF
+}
 
-lsblk
-sleep 1
-fdisk $device <<EOF
+# Function to create a partition
+create_partition() {
+    local device=$1
+    local type=$2
+    local number=$3
+    local size=$4
+
+    fdisk $device <<EOF
 n
-p
-1
+$type
+$number
 
-+1G
+$size
 w
 EOF
+}
 
+# Function to update the OS with partition table changes and ensure the command is successful
+update_partitions() {
+    local device=$1
+
+    until partx -u $device; do
+        echo "Retrying to update partitions..."
+        sleep 1
+    done
+}
+
+# Main script execution
+safety_reminder
+
+# Display current block devices
 lsblk
-wait -n
-partx -u $device
-sleep 1
-fdisk $device <<EOF
-n
-p
-2
 
-+32G
-w
-EOF
+# Clear the partition table
+clear_partition_table $device
 
+# Display updated block devices
 lsblk
-wait -n
-partx -u $device
-sleep 1
-fdisk $device <<EOF
-n
-p
-3
 
+# Create partitions and update OS
+create_partition $device "p" "1" "+1G"
+update_partitions $device
 
-w
-EOF
+create_partition $device "p" "2" "+32G"
+update_partitions $device
 
+create_partition $device "p" "3" ""
+update_partitions $device
 
+# Confirm the partitions were created successfully
 echo "Partitions created successfully on $device."
-wait -n
-partx -u $device
-wait -n
+
+# Flush file system buffers
 sync
-sleep 1
+
+# Display the final block devices list
 lsblk
