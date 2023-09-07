@@ -384,6 +384,8 @@ echo "kernel.dmesg_restrict = 0" > /etc/sysctl.d/dmesg.conf
 
 
 echo "m-c-frank"
+ln -s /etc/runit/sv/wpa_supplicant  /run/runit/service
+dhclient
 
 # Last message! Install complete!
 finalize
