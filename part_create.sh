@@ -5,14 +5,14 @@ exit
 
 device="/dev/nvme0n1"
 
-# Delete existing partition table if any
+lsblk
 fdisk $device <<EOF
 o
 w
 EOF
-partx -u $device
 
-# Create nvme0n1p1 of 1GB
+lsblk
+sleep 1
 fdisk $device <<EOF
 n
 p
@@ -21,9 +21,11 @@ p
 +1G
 w
 EOF
-partx -u $device
 
-# Create nvme0n1p2 of 32GB
+lsblk
+wait -n
+partx -u $device
+sleep 1
 fdisk $device <<EOF
 n
 p
@@ -32,9 +34,11 @@ p
 +32G
 w
 EOF
-partx -u $device
 
-# Create nvme0n1p3 taking up the remaining space
+lsblk
+wait -n
+partx -u $device
+sleep 1
 fdisk $device <<EOF
 n
 p
@@ -43,6 +47,12 @@ p
 
 w
 EOF
-partx -u $device
+
 
 echo "Partitions created successfully on $device."
+wait -n
+partx -u $device
+wait -n
+sync
+sleep 1
+lsblk
