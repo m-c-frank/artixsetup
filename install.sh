@@ -112,7 +112,7 @@ main() {
 
     basestrap /mnt base base-devel runit elogind-runit linux linux-firmware
 
-    fstabgen -u /mnt >> /mnt/etc/fstab
+    fstabgen -U /mnt >> /mnt/etc/fstab
 
     curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postinstall.sh
 }
