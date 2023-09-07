@@ -111,6 +111,8 @@ main() {
     mount_and_create_dirs
 
     basestrap /mnt base base-devel runit elogind-runit linux linux-firmware
+
+    fstabgen -u /mnt >> /mnt/etc/fstab
 }
 
 # Execute the main function
