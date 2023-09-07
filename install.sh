@@ -114,7 +114,8 @@ main() {
 
     fstabgen -U /mnt >> /mnt/etc/fstab
 
-    curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postinstall.sh >> /mnt/postinstall.sh
+    curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postinstall.sh
+    mv ./postinstall.sh /mnt/postinstall.sh
 
     echo "now run 'sudo artix-chmod /mnt' and then run postinstall.sh"
 }
