@@ -118,6 +118,8 @@ main() {
     mv ./postinstall.sh /mnt/postinstall.sh
 
     echo "now run 'sudo artix-chmod /mnt' and then run postinstall.sh"
+
+    ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 }
 
 # Execute the main function
