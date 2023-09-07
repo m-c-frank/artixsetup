@@ -15,6 +15,12 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
 hwclock --systohc
 
+pacman -S --noconfirm github-cli wpa_supplicant wpa_supplicant-runit dhclient
+
+dhclient
+
+ln -s /etc/runit/sv/wpa_supplicant  /run/runit/service
+
 curl -LO https://raw.githubusercontent.com/m-c-frank/artixsetup/main/larbs.sh
 
 echo "GRUB configured. Now run the larbs script"
