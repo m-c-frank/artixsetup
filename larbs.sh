@@ -22,7 +22,6 @@ if [ ! -f "postboot.sh" ] || [ ! -f "wpa_supplicant.conf" ]; then
     [ ! -f "wpa_supplicant.conf" ] && curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/wpa_supplicant.conf
 else
     echo "Both files are successfully downloaded. Please rerun the script."
-	exit
 fi
 
 ### FUNCTIONS ###
@@ -51,7 +50,7 @@ getuserandpass() {
     # Prompts user for new password.
     pass1=$(whiptail --nocancel --passwordbox "Enter a password for the user $USERNAME." 10 60 3>&1 1>&2 2>&3 3>&1)
     pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
-    
+
     while ! [ "$pass1" = "$pass2" ]; do
         unset pass2
         pass1=$(whiptail --nocancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
