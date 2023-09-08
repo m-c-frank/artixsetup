@@ -10,9 +10,20 @@ USERNAME="mcfrank"
 
 dotfilesrepo="https://github.com/m-c-frank/voidrice.git"
 progsfile="https://raw.githubusercontent.com/m-c-frank/artixsetup/main/progs.csv"
+
 aurhelper="yay"
 repobranch="master"
 export TERM=ansi
+
+# Check if files are already downloaded
+if [ ! -f "postboot.sh" ] || [ ! -f "wpa_supplicant.conf" ]; then
+    echo "Downloading missing files..."
+    [ ! -f "postboot.sh" ] && curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postboot.sh
+    [ ! -f "wpa_supplicant.conf" ] && curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/wpa_supplicant.conf
+else
+    echo "Both files are successfully downloaded. Please rerun the script."
+	exit
+fi
 
 ### FUNCTIONS ###
 
@@ -315,8 +326,6 @@ echo "kernel.dmesg_restrict = 0" > /etc/sysctl.d/dmesg.conf
 
 
 echo "m-c-frank"
-curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/postboot.sh
-curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/wpa_supplicant.conf
 
 mv wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 
