@@ -43,4 +43,4 @@ echo "wpa_supplicant restarted."
 # Final output
 echo "All done. Please check if you're connected and have an IP address using 'ip addr show $WLAN_INTERFACE'."
 
-pacman -S chromium
+curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/chromiumsetup.sh
