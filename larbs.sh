@@ -325,10 +325,7 @@ mkdir -p /etc/sysctl.d
 echo "kernel.dmesg_restrict = 0" > /etc/sysctl.d/dmesg.conf
 
 
-echo "m-c-frank"
-
-mv wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
-
-echo "reboot now and run postboot.sh"
 # Last message! Install complete!
 finalize
+
+echo "reboot now and run postboot.sh"
