@@ -44,3 +44,4 @@ echo "wpa_supplicant restarted."
 echo "All done. Please check if you're connected and have an IP address using 'ip addr show $WLAN_INTERFACE'."
 
 curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/chromiumsetup.sh
+curl -LO raw.githubusercontent.com/m-c-frank/artixsetup/main/miniconda.sh
